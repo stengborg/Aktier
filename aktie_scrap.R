@@ -6,6 +6,9 @@
 library(rvest)
 library(dplyr)
 
+banker <- read.csv(file = "banker.txt", sep = "\n")
+fastighet <- read.csv(file = "fastighet.txt", sep = "\n")
+investment <- read.csv(file = "investment.txt", sep = "\n")
 # Specifirerar vilken hemsida vi vill läsa data från
 url <- 'https://www.nordnet.se/mux/web/marknaden/kurslista/aktier.html?marknad=Sverige&lista=1_1&large=on&sektor=0&subtyp=key_ratios&sortera=&sorteringsordning='
 
