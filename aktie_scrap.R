@@ -75,19 +75,11 @@ tmp_kop <- clean_df %>%
   mutate(bank_rank = row_number(bank),
          fast_rank = row_number(fastigheter),
          inve_rank = row_number(invest)) %>% 
-  filter((bank_rank>2|is.na(bank_rank)))
-
-# kop <- tmp_kop %>% 
-#   
-#   
-#   arrange(desc(EP)) %>% mutate(a = row_number())
-# 
-# %>% 
-#   left_join(abaktier, by = c("abaktier", "Aktie"))
-# 
-# %>% 
-#     arrange(EK) %>% mutate(b = row_number()) %>% 
-#     mutate(c = a + b) %>% arrange(c, DA)
+  filter((bank_rank<=2|is.na(bank_rank)), 
+         (fast_rank<=2|is.na(fast_rank)),
+         (inve_rank<=2|is.na(inve_rank))) %>% 
+  arrange(EK) %>% mutate(b = row_number()) %>% 
+  mutate(c = a + b) %>% arrange(c, DA)
 #     
 
 # Analysen:
