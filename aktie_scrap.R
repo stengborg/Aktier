@@ -64,12 +64,18 @@ clean_df <- df_alles %>% mutate(Aktie = tolower(Aktie),
 
 # Filtrera ut aktier som inte möter villkoren för köp
 tmp_kop <- clean_df %>%
-    mutate(EP = (1/PE)*100) %>% 
+  mutate(EP = (1/PE)*100) %>% 
   filter(PE > 0, DA > 0) %>% 
   left_join(abaktier, by = c("Aktie" = "abaktier")) %>% 
   left_join(banker, by = c("Aktie" = "banker")) %>% 
   left_join(fastigheter, by = c("Aktie" = "fastighet")) %>% 
-  left_join(investmentbolag, by = c("Aktie" = "investment"))
+  left_join(investmentbolag, by = c("Aktie" = "investment")) %>% 
+  filter(is.na(abaktie)) %>% 
+  arrange(desc(EP)) %>% mutate(a = row_number()) %>% 
+  mutate(bank_rank = row_number(bank),
+         fast_rank = row_number(fastigheter),
+         inve_rank = row_number(invest)) %>% 
+  filter((bank_rank>2|is.na(bank_rank)))
 
 # kop <- tmp_kop %>% 
 #   
